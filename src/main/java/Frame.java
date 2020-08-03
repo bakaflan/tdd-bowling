@@ -41,4 +41,23 @@ public class Frame {
     public int getScore() {
         return score;
     }
+
+    public int getFirstThrowScore(){
+        if(throwScore[0].equals("X")){
+            return 10;
+        }
+        return Integer.valueOf(throwScore[0]);
+    }
+
+    public void bonus(int bonus){
+        this.score += bonus;
+    }
+
+    public boolean isStrike() {
+        return isStrike;
+    }
+
+    public boolean isSpare() {
+        return isSpare;
+    }
 }

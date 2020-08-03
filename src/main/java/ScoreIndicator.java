@@ -20,13 +20,25 @@ public class ScoreIndicator {
 
     public int calculateLine(String lineResult) {
         convertLineResult(lineResult);
-        this.frameList.forEach(i -> this.lineScore+= i.getScore());
+        this.frameList.forEach(frame -> this.lineScore+= frame.getScore());
         return this.lineScore;
     }
 
-    public void convertLineResult(String lineResult){
+    private void convertLineResult(String lineResult){
         String[] frameResults = lineResult.split(" ");
         IntStream.range(0,frameResults.length).forEach(i-> this.frameList.add(Frame.createFrame(frameResults[i])));
+        this.analyseLine();
+    }
+
+    private void analyseLine(){
+        IntStream.range(0,frameList.size()-1).forEach(i ->{
+            if(frameList.get(i).isStrike()){
+                frameList.get(i).bonus(frameList.get(i+1).getScore());
+            }
+            if(frameList.get(i).isSpare()){
+                frameList.get(i).bonus(frameList.get(i+1).getFirstThrowScore());
+            }
+        });
     }
 
 }
