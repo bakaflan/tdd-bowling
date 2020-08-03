@@ -13,15 +13,11 @@ public class BowlingGameTest {
         indicator = new ScoreIndicator();
     }
 
-    @AfterEach
-    void clean(){
-        indicator.init();
-    }
 
     @Test
     void should_calcultate_frame_score_when_pin_in_one_frame_and_return_4(){
         String frameResult = "22";
-        Assertions.assertEquals(4,indicator.calculateFrame(frameResult));
+        Assertions.assertEquals(4,indicator.calculateLine(frameResult));
     }
 
     @Test
