@@ -40,13 +40,25 @@ public class BowlingGameTest {
 
     @Test
     void should_calcultate_score_when_line_with_the_10th_frame_and_return_21(){
-        String lineResult = "11 11 11 11 11 11 11 11 11 111";//1*21=21
-        Assertions.assertEquals(21,indicator.calculateLine(lineResult));
+        String lineResult = "11 11 11 11 11 11 11 11 11 11";//1*20=20
+        Assertions.assertEquals(20,indicator.calculateLine(lineResult));
+    }
+
+    @Test
+    void should_calcultate_score_when_all_frames_are_00_with_last_XXX_and_return_(){
+        String lineResult = "00 00 00 00 00 00 00 00 00 5/X";//30
+        Assertions.assertEquals(30,indicator.calculateLine(lineResult));
     }
 
     @Test
     void should_calcultate_score_when_all_frames_are_stike_and_return_300(){
         String lineResult = "X/ X/ X/ X/ X/ X/ X/ X/ X/ XXX";//300
         Assertions.assertEquals(300,indicator.calculateLine(lineResult));
+    }
+
+    @Test
+    void should_calcultate_score_when_all_frames_are_stike_with_last_spare_and_return_300(){
+        String lineResult = "X/ X/ X/ X/ X/ X/ X/ X/ X/ X3/";//
+        Assertions.assertEquals(283,indicator.calculateLine(lineResult));
     }
 }

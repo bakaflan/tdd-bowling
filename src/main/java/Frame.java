@@ -1,14 +1,14 @@
-import java.util.stream.IntStream;
 
 public class Frame {
     private int score;
     private String[] throwScore;
     private boolean isStrike;
     private boolean isSpare;
+    private boolean isLastFrame;
 
     public Frame() {
         this.score = 0;
-        this.throwScore = new String[2];
+        this.throwScore = new String[3];
         this.isStrike = false;
         this.isSpare = false;
     }
@@ -22,6 +22,10 @@ public class Frame {
     public void convert(String frameResult){
         this.throwScore = frameResult.split("");
         this.analyseFrame();
+    }
+
+    public int getScore() {
+        return score;
     }
 
     private void analyseFrame(){
@@ -38,10 +42,6 @@ public class Frame {
         this.score = Integer.valueOf(throwScore[0])+Integer.valueOf(throwScore[1]);
     }
 
-    public int getScore() {
-        return score;
-    }
-
     public int getFirstThrowScore(){
         if(throwScore[0].equals("X")){
             return 10;
@@ -49,8 +49,51 @@ public class Frame {
         return Integer.valueOf(throwScore[0]);
     }
 
+    public int getSecondThrowScore(){
+        if(isLastFrame){
+            if(throwScore[1].equals("X")){
+                return 10;
+            }
+            return Integer.valueOf(throwScore[1]);
+        }
+        if(throwScore[0].equals("X")){
+            return 10;
+        }
+        if(throwScore[1].equals("/")){
+            return -1;
+        }
+        return Integer.valueOf(throwScore[1]);
+    }
+
+
+
     public void bonus(int bonus){
         this.score += bonus;
+    }
+
+    public void bonusLastFrame(){
+        if(throwScore.length!=3){
+            return;
+        }
+        int tempScore = this.score;
+        if(throwScore[1].equals("X")){
+            tempScore+=10;
+        }
+        if(throwScore[1].equals("/")){
+            tempScore+= 10;
+            if(!throwScore[2].equals("X")){
+                tempScore+= Integer.valueOf(throwScore[2]);
+            }
+        }
+        if(throwScore[2].equals("X")){
+            tempScore+=10;
+        }
+        if(throwScore[2].equals("/")){
+            tempScore+=10;
+        }
+
+
+        this.score = tempScore;
     }
 
     public boolean isStrike() {
@@ -59,5 +102,9 @@ public class Frame {
 
     public boolean isSpare() {
         return isSpare;
+    }
+
+    public void setLastFrame(boolean lastFrame) {
+        isLastFrame = lastFrame;
     }
 }
