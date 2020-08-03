@@ -27,14 +27,26 @@ public class BowlingGameTest {
     }
 
     @Test
-    void should_calcultate_score_when_spare_in_one_frame_and_return_14(){
+    void should_calcultate_score_when_spare_in_one_frame_and_return_24(){
         String lineResult = "2/ 54";//(10+5)+9=24
         Assertions.assertEquals(24,indicator.calculateLine(lineResult));
     }
 
     @Test
-    void should_calcultate_score_when_strike_in_one_frame_and_return_19(){
+    void should_calcultate_score_when_strike_in_one_frame_and_return_28(){
         String lineResult = "X/ 54";//(10+5+4)+9=28
         Assertions.assertEquals(28,indicator.calculateLine(lineResult));
+    }
+
+    @Test
+    void should_calcultate_score_when_line_with_the_10th_frame_and_return_21(){
+        String lineResult = "11 11 11 11 11 11 11 11 11 111";//1*21=21
+        Assertions.assertEquals(21,indicator.calculateLine(lineResult));
+    }
+
+    @Test
+    void should_calcultate_score_when_all_frames_are_stike_and_return_300(){
+        String lineResult = "X/ X/ X/ X/ X/ X/ X/ X/ X/ XXX";//300
+        Assertions.assertEquals(300,indicator.calculateLine(lineResult));
     }
 }
